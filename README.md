@@ -4,22 +4,26 @@
  * @Author: ZZF
  * @Date: 2020-06-11 15:28:36
  * @LastEditors: ZZF
- * @LastEditTime: 2020-06-11 17:38:57
+ * @LastEditTime: 2020-06-11 18:01:40
 -->
 
-# fe-deploy-cli
+# frontend-prod-docker-cli
 
 前端轻量化部署脚手架，支持测试、线上等多环境部署，支持环境配置扩展，实现一条命令即可完成整个部署流程，同时支持将资源更新到 docker 中并重启 docker。
 
-## git 地址：
+## github 地址：
+
+https://github.com/Joseph244/frontend-prod-docker-cli
 
 ## npm 地址：
+
+https://www.npmjs.com/package/frontend-prod-docker-cli
 
 ## 博客
 
 ## 使用指南
 
-https://github.com/dadaiwei/fe-deploy-cli/blob/master/README.md
+https://github.com/Joseph244/frontend-prod-docker-cli
 
 ## 前提条件
 
@@ -27,15 +31,15 @@ https://github.com/dadaiwei/fe-deploy-cli/blob/master/README.md
 
 ## 安装
 
-全局安装 fe-deploy-cli
+全局安装 frontend-prod-docker-cli
 
 ```
-npm i fe-deploy-cli -g
+npm i frontend-prod-docker-cli -g
 ```
 
 查看版本，表示安装成功。
 
-![安装fe-deploy-cli](./imgs/安装deploy.png)
+![安装frontend-prod-docker-cli](./imgs/安装deploy.png)
 
 ## 使用
 
