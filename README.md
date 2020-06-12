@@ -86,6 +86,6 @@ prod 环境部署采用的时`prod`的配置
 fe-deploy prod
 ```
 
-本系统参考博主的脚手架，感谢开源！
+本系统参考https://github.com/dadaiwei/fe-deploy-cli，感谢开源！
 
 欢迎大家支持，还会不断更新支持更多功能，如有改进意见请多读指教，欢迎 star 一下子！

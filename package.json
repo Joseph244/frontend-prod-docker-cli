@@ -1,6 +1,6 @@
 {
   "name": "frontend-prod-docker-cli",
-  "version": "0.0.13",
+  "version": "1.0.0",
   "description": "前端打包发布到服务器，可支持跟新资源到docker容器的cli工具",
   "bin": {
     "fe-deploy": "./bin/index.js"
