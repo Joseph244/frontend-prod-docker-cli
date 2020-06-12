@@ -1,35 +1,32 @@
 {
-    "name": "frontend-prod-docker-cli",
-    "version": "1.0.0",
-    "description": "前端打包发布到服务器，可支持跟新资源到docker容器的cli工具",
-    "bin": {
-        "deploy": "./bin/index.js"
-    },
-    "scripts": {
-        "start": "node ./bin/index.js prod"
-    },
-    "keywords": [
-        "web",
-        "node-ssh",
-        "deploy"
-    ],
-    "author": "阿飞飞飞",
-    "license": "ISC",
-    "engines": {
-        "node": ">=9.0.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Joseph244/frontend-prod-docker-cli"
-    },
-    "dependencies": {
-        "archiver": "^3.1.1",
-        "chalk": "^3.0.0",
-        "commander": "^4.1.0",
-        "download-git-repo": "^3.0.2",
-        "inquirer": "^7.0.3",
-        "node-ssh": "^7.0.0",
-        "ora": "^4.0.3",
-        "semver": "^7.1.1"
-    }
+  "name": "frontend-prod-docker-cli",
+  "version": "0.0.13",
+  "description": "前端打包发布到服务器，可支持跟新资源到docker容器的cli工具",
+  "bin": {
+    "fe-deploy": "./bin/index.js"
+  },
+  "keywords": [
+    "web",
+    "node-ssh",
+    "fe-deploy"
+  ],
+  "author": "阿飞飞飞",
+  "license": "ISC",
+  "engines": {
+    "node": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Joseph244/frontend-prod-docker-cli"
+  },
+  "dependencies": {
+    "archiver": "^3.1.1",
+    "chalk": "^3.0.0",
+    "commander": "^4.1.0",
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^7.0.3",
+    "node-ssh": "^7.0.0",
+    "ora": "^4.0.3",
+    "semver": "^7.1.1"
+  }
 }
