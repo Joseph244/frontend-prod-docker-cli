@@ -10,6 +10,7 @@ const {
   checkNodeVersion,
   checkDeployConfig,
   underlineLog,
+  successLog,
   infoLog,
 } = require("../utils/index");
 
@@ -25,7 +26,10 @@ const program = require("commander");
 program
   .version(version)
   .command("init")
-  .description("初始化部署相关配置")
+  .description(
+    `初始化部署相关配置
+  \r\n--------------------------------------------------------`
+  )
   .action(() => {
     require("../lib/init")();
   });
@@ -50,43 +54,53 @@ function deploy() {
   if (!deployConfigs) {
     process.exit(1); // 退出
   }
-
-  // 注册部署命令
+  infoLog(deployConfigs);
+  // 注册部署命令,可以使用fe-deploy看到有哪些命令
   deployConfigs.forEach((config) => {
-    const { command, projectName, name, host, dockerName } = config;
+    const {
+      command,
+      projectName,
+      name,
+      host,
+      dockerName,
+      dockerWebDir,
+    } = config;
     program
       .command(`${command}`)
       .description(
-        `即将部署：${underlineLog(projectName)}项目 ${underlineLog(
-          host
-        )}主机 ${underlineLog(name)}环境`
+        `${underlineLog(projectName)}项目部署到 ${underlineLog(
+          name
+        )}环境---主机: ${underlineLog(host)}
+        \r\n配置项:\r\n${JSON.stringify(config).replace(/,/g, "\r\n")}
+        \r\n--------------------------------------------------------`
       )
       .action(() => {
-        inquirer
-          .prompt([
-            {
-              type: "confirm",
-              message: `${underlineLog(
-                projectName
-              )}项目是否部署到${underlineLog(host)}---${underlineLog(name)}？`,
-              name: "publishSure",
-            },
-            {
-              type: "confirm",
-              message: `项目是否更新到docker：${underlineLog(dockerName)}？`,
-              name: "dockerSure",
-            },
-          ])
-          .then((answers) => {
-            const { publishSure, dockerSure } = answers;
-            if (!publishSure) {
-              process.exit(1);
-            }
-            if (publishSure) {
-              const deploy = require("../lib/deploy");
-              deploy(config, dockerSure);
-            }
+        let arr = [
+          {
+            type: "confirm",
+            message: `${underlineLog(projectName)}项目是否部署到${underlineLog(
+              host
+            )}---${underlineLog(name)}？`,
+            name: "publishSure",
+          },
+        ];
+        if (dockerName && dockerWebDir) {
+          arr.push({
+            type: "confirm",
+            message: `项目是否更新到docker：${underlineLog(dockerName)}？`,
+            name: "dockerSure",
           });
+        }
+        inquirer.prompt(arr).then((answers) => {
+          const { publishSure, dockerSure } = answers;
+          if (!publishSure) {
+            process.exit(1);
+          }
+          if (publishSure) {
+            const deploy = require("../lib/deploy");
+            deploy(config, dockerSure);
+          }
+        });
       });
   });
 }
