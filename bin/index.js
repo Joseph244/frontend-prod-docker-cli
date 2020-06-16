@@ -54,7 +54,7 @@ function deploy() {
   if (!deployConfigs) {
     process.exit(1); // 退出
   }
-  infoLog(deployConfigs);
+
   // 注册部署命令,可以使用fe-deploy看到有哪些命令
   deployConfigs.forEach((config) => {
     const {

@@ -12,7 +12,7 @@ https://www.npmjs.com/package/frontend-prod-docker-cli
 
 ## 博客
 
-暂未更新，可关注掘金：https://juejin.im/post/5ee10b0ce51d4578853d3bee
+暂未更新，可关注掘金主页：https://juejin.im/post/5ee10b0ce51d4578853d3bee
 
 ## 使用指南
 
