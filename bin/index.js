@@ -82,6 +82,7 @@ function deploy() {
               host
             )}---${underlineLog(name)}？`,
             name: "publishSure",
+            default: true,
           },
         ];
         if (dockerName && dockerWebDir) {
@@ -89,8 +90,10 @@ function deploy() {
             type: "confirm",
             message: `项目是否更新到docker：${underlineLog(dockerName)}？`,
             name: "dockerSure",
+            default: true,
           });
         }
+
         inquirer.prompt(arr).then((answers) => {
           const { publishSure, dockerSure } = answers;
           if (!publishSure) {
