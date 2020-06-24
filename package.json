@@ -1,6 +1,6 @@
 {
   "name": "frontend-prod-docker-cli",
-  "version": "1.0.9",
+  "version": "1.1.1",
   "description": "将开发代码执行打包命令并发到服务器，可支持跟新资源到docker容器并重启的cli工具",
   "bin": {
     "fe-deploy": "./bin/index.js"
@@ -8,7 +8,9 @@
   "keywords": [
     "web",
     "node-ssh",
-    "fe-deploy"
+    "docker",
+    "ssh",
+    "build"
   ],
   "author": "阿飞飞飞",
   "license": "ISC",

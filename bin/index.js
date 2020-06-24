@@ -39,7 +39,8 @@ const agrs = process.argv.slice(2);
 const firstArg = agrs[0];
 // 非version选项且有配置文件时，进入部署流程
 if (!versionOptions.includes(firstArg) && fs.existsSync(deployConfigPath)) {
-  deploy();
+  deployOne();
+  deployAll();
 }
 
 // 无参数时默认输出help信息
@@ -48,7 +49,7 @@ if (!firstArg) {
 }
 
 // 部署流程
-function deploy() {
+function deployOne() {
   // 检测部署配置是否合理
   const deployConfigs = checkDeployConfig(deployConfigPath);
   if (!deployConfigs) {
@@ -100,12 +101,48 @@ function deploy() {
             process.exit(1);
           }
           if (publishSure) {
-            const deploy = require("../lib/deploy");
-            deploy(config, dockerSure);
+            const { deploySingle } = require("../lib/deploy");
+            deploySingle(config, dockerSure);
           }
         });
       });
   });
+}
+
+function deployAll() {
+  const projectConfig = require(deployConfigPath);
+  const deployConfigs = checkDeployConfig(deployConfigPath);
+
+  if (!deployConfigs) {
+    process.exit(1); // 退出
+  }
+  const allItem = {
+    type: "checkbox",
+    message: `请选择您要部署的环境（可多选）`,
+    name: "deployChoices",
+    choices: [],
+  };
+
+  deployConfigs.forEach((config) => {
+    const { command } = config;
+    allItem.choices.push(command);
+  });
+
+  // 多环境部署脚本
+  program
+    .command("all")
+    .description(
+      `一键部署多套环境(方向键切换，空格选择)\r\n${allItem.choices}\r\n------------------------------------------`
+    )
+    .action(() => {
+      inquirer.prompt([allItem]).then((answers) => {
+        if (!answers.deployChoices || answers.deployChoices.length == 0) {
+          process.exit(1); // 退出
+        }
+        const { deployMuti } = require("../lib/deploy");
+        deployMuti(projectConfig, deployConfigs, answers.deployChoices);
+      });
+    });
 }
 
 // 解析参数
