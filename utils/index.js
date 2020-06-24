@@ -24,7 +24,7 @@ function startLog(...content) {
 
 // 信息日志
 function infoLog(...content) {
-  console.log(chalk.blue(...content));
+  console.log(chalk.white(...content));
 }
 
 // 成功日志
