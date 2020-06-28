@@ -99,12 +99,12 @@ module.exports = {
 
 ```
 fe-deploy           // 可以看到自己的部署命令和配置文件内容
-fe-deploy  prod106  // 直接执行prod106环境部署（fe-deploy xxx (xxx 为 prod.config.js 中配置环境的键值，如上面的“prod106”)）
+fe-deploy  106  // 直接执行106环境部署（fe-deploy xxx (xxx 为 prod.config.js 中配置环境的键值，如上面的“106”)）
 
 ```
 
 ![deploy](./assets/fe-deploy.png)
-![deploy1](./assets/deploy1.png)
+![deploy1](./assets/dist-docker.png)
 
 #### 多环境部署
 
@@ -113,6 +113,8 @@ fe-deploy  prod106  // 直接执行prod106环境部署（fe-deploy xxx (xxx 为 
 ```
 fe-deploy  all      // 在所有配置环境中选择多个环境一键部署多环境
 ```
+
+![deploy1](./assets/deploy-all.png)
 
 本系统初期参考https://github.com/dadaiwei/fe-deploy-cli，并借鉴vue-cli思路是实现，在此感谢！
 
