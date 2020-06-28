@@ -2,25 +2,19 @@
 
 前端轻量化部署脚手架，支持测试、线上等多环境部署，支持环境配置扩展，实现一条命令即可完成整个部署流程，同时支持将资源更新到 docker 中并重启 docker;支持多套环境一键部署。
 
-## github 地址：
+## 初衷
 
-https://github.com/Joseph244/frontend-prod-docker-cli
+前端或服务端开发传统的打包方式为，当开发完毕之后执行打包命令:
+前端一般为 npm run build
+java 依赖 mavan 打包命令为 mvn package -Dmaven.test.skip=true
+go 服务打包命令为 go build demo.go 等
 
-## npm 地址：
+之后打开 ssh 工具连接服务器，通过 ftp 或者 ssh 工具将打包之后的应用程序包上传到服务器某位置，然后重启或 reload；如果是 docker 打包，还需要 docker cp ... ...将文件 copy 到容器内，执行 docker restart ... ,docker commit container... ,docker push 等一系列命令。每次版本更新还都要执行上面的一系列操作，好麻烦。。。
 
-https://www.npmjs.com/package/frontend-prod-docker-cli
-
-## 简介
-
-前端或服务端开发传统的打包方式为，当开发完毕之后执行打包命令（前端一般为 npm run build，java 依赖 mavan 打包命令为 mvn package -Dmaven.test.skip=true，go 服务打包命令为 go build demo.go 等），之后打开 ssh 工具连接服务器，通过 ftp 或者 ssh 工具将打包之后的应用程序包上传到服务器某位置，然后重启或 reload；如果是 docker 打包，还需要 docker cp ... ...将文件 copy 到容器内，执行 docker restart ... ,docker commit container... ,docker push 等一系列命令。每次版本更新还都要执行上面的一系列操作，好麻烦。。。 。。。
 这种固定流程化的工作为什么不能使用一个脚手架直接实现呢？
 其实业界已经有很多的成熟方案，包括 gitlab + git hook + jenkins 等方案；但是相对小团队或者没有条件搭建这样一套比较重环境的团队,做这个事情又需要做太多的维护和搭建工作，在下受到 vue-cli 和很多前端脚手架的启发，开发了这个简陋的小工具，可以实现上述工作的部分流程化，采用一次配置，一行命令更新的方式，简化开发者的手工操作，欢迎大家使用和 issue，喜欢的话小手给个 star 激励一下，谢谢！
 
-本脚手架使用的前提条件： 1.本地安装 node v10.0.0 以上； 2.能通过 ssh 连上您的服务器; 3.如只是前端和 node 端打包，无需其他环境；如果是 java 打包需要安装 jdk，jre，mavan；如果是 go 基础环境打包，需要安装和 go 基础环境。
-
-** 注意：本脚手架目前只支持开发者更新服务时使用 **
-
-## 当前 cli 功能清单
+## 当前 cli 功能
 
 1.前端 spa 单页应用打包，服务器直接更新部署；支持 docker 更新；
 
@@ -28,9 +22,11 @@ https://www.npmjs.com/package/frontend-prod-docker-cli
 
 3.多环境一起更新；fe-deploy all
 
-## 作者博客
+## 前提条件
 
-可关注掘金主页：https://juejin.im/post/5ee10b0ce51d4578853d3bee
+本脚手架使用的前提条件： 1.本地安装 node v10.0.0 以上； 2.能通过 ssh 连上您的服务器; 3.如只是前端和 node 端打包，无需其他环境；如果是 java 打包需要安装 jdk，jre，mavan；如果是 go 基础环境打包，需要安装和 go 基础环境。
+
+** 注意：本脚手架目前只支持开发者更新服务时使用 **
 
 ## 安装
 
@@ -61,7 +57,7 @@ fe-deploy init
 ```
 
 可看到在当前项目目录下生成了配置文件如下：
-![init](./assets/init.png)
+[![Ng3mCT.png](https://s1.ax1x.com/2020/06/28/Ng3mCT.png)](https://imgchr.com/i/Ng3mCT)
 
 ### 2.配置部署环境
 
@@ -103,8 +99,8 @@ fe-deploy  106  // 直接执行106环境部署（fe-deploy xxx (xxx 为 prod.con
 
 ```
 
-![deploy](./assets/fe-deploy.png)
-![deploy1](./assets/dist-docker.png)
+[![Ng3QKJ.png](https://s1.ax1x.com/2020/06/28/Ng3QKJ.png)](https://imgchr.com/i/Ng3QKJ)
+[![Ng3Z5V.png](https://s1.ax1x.com/2020/06/28/Ng3Z5V.png)](https://imgchr.com/i/Ng3Z5V)
 
 #### 多环境部署
 
@@ -114,8 +110,20 @@ fe-deploy  106  // 直接执行106环境部署（fe-deploy xxx (xxx 为 prod.con
 fe-deploy  all      // 在所有配置环境中选择多个环境一键部署多环境
 ```
 
-![deploy1](./assets/deploy-all.png)
+[![Ng31bR.png](https://s1.ax1x.com/2020/06/28/Ng31bR.png)](https://imgchr.com/i/Ng31bR)
 
 本系统初期参考https://github.com/dadaiwei/fe-deploy-cli，并借鉴vue-cli思路是实现，在此感谢！
 
 欢迎大家支持，还会不断更新支持更多功能，如有改进意见请多读指教，欢迎 star 一下子！
+
+## 作者博客
+
+可关注掘金主页：https://juejin.im/post/5ee10b0ce51d4578853d3bee
+
+## github 地址：
+
+https://github.com/Joseph244/frontend-prod-docker-cli
+
+## npm 地址：
+
+https://www.npmjs.com/package/frontend-prod-docker-cli
