@@ -112,6 +112,15 @@ function checkDeployConfig(deployConfigPath) {
   return false;
 }
 
+/**
+ * @description 从全路径解析最后一个文件or文件夹
+ * @return 最后一个文件全名or文件夹
+ */
+function lastPathFromFullPath(fullpath) {
+  const temp = fullpath.split("/");
+  const lastName = temp[temp.length - 1];
+  return lastName;
+}
 module.exports = {
   startLog,
   infoLog,
@@ -120,4 +129,5 @@ module.exports = {
   underlineLog,
   checkNodeVersion,
   checkDeployConfig,
+  lastPathFromFullPath,
 };

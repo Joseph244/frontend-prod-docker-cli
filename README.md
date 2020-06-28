@@ -60,6 +60,9 @@ fe-deploy -V
 fe-deploy init
 ```
 
+可看到在当前项目目录下生成了配置文件如下：
+![init](./assets/init.png)
+
 ### 2.配置部署环境
 
 部署配置文件位于当前项目下 frontend-prod-docker-cli 文件夹下的`prod.config.js`, 可包含多个环境配置，支持选择单个环境部署，也可多环境一键部署
@@ -99,6 +102,9 @@ fe-deploy           // 可以看到自己的部署命令和配置文件内容
 fe-deploy  prod106  // 直接执行prod106环境部署（fe-deploy xxx (xxx 为 prod.config.js 中配置环境的键值，如上面的“prod106”)）
 
 ```
+
+![deploy](./assets/fe-deploy.png)
+![deploy1](./assets/deploy1.png)
 
 #### 多环境部署
 
