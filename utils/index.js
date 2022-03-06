@@ -84,13 +84,31 @@ function checkConfigScheme(configKey, configObj) {
   return configValid;
 }
 
-// 检查deploy配置是否合理
-function checkDeployConfig(deployConfigPath) {
+/**
+ *  @description 检查发布配置是否正确
+ * @params deploySeverKey 要部署的环境key
+ * */ 
+function checkDeployConfig(deployConfigPath, deploySeverKey) {
   if (fs.existsSync(deployConfigPath)) {
     const config = require(deployConfigPath);
     const { projectName, script } = config;
     const keys = Object.keys(config);
     const configs = [];
+    // 一个环境的发布配置检查
+    if(deploySeverKey){
+      if (keys.includes(deploySeverKey) && config[deploySeverKey] instanceof Object) {
+        if (!checkConfigScheme(deploySeverKey, config[deploySeverKey])) {
+          return false;
+        }
+        config[deploySeverKey].projectName = projectName;
+        config[deploySeverKey].script = script;
+        config[deploySeverKey].command = deploySeverKey;
+        configs.push(config[deploySeverKey]);
+      }
+      return configs
+    }
+
+    // 全部配置检查
     for (let key of keys) {
       if (config[key] instanceof Object) {
         if (!checkConfigScheme(key, config[key])) {

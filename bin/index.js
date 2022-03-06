@@ -6,6 +6,7 @@ const inquirer = require("inquirer");
 const packageJson = require("../package.json");
 const deployPath = path.join(process.cwd(), "./frontend-prod-docker-cli"); // cli工具的文件目录
 const deployConfigPath = `${deployPath}/prod.config.js`;
+const { deploySingle } = require("../lib/deploy");
 const {
   checkNodeVersion,
   checkDeployConfig,
@@ -39,8 +40,7 @@ const agrs = process.argv.slice(2);
 const firstArg = agrs[0];
 // 非version选项且有配置文件时，进入部署流程
 if (!versionOptions.includes(firstArg) && fs.existsSync(deployConfigPath)) {
-  deployOne();
-  deployAll();
+  firstArg == "all" ? deployAll() : deployOne(firstArg);
 }
 
 // 无参数时默认输出help信息
@@ -48,10 +48,14 @@ if (!firstArg) {
   program.outputHelp();
 }
 
-// 部署流程
-function deployOne() {
+/**
+ * @description 部署单个环境
+ * @param deployKey 要部署的环境键名
+ */
+function deployOne(deployKey) {
   // 检测部署配置是否合理
-  const deployConfigs = checkDeployConfig(deployConfigPath);
+  const deployConfigs = checkDeployConfig(deployConfigPath, deployKey);
+  console.log(deployConfigs)
   if (!deployConfigs) {
     process.exit(1); // 退出
   }
@@ -76,35 +80,38 @@ function deployOne() {
         \r\n--------------------------------------------------------`
       )
       .action(() => {
-        let arr = [
-          {
-            type: "confirm",
-            message: `${underlineLog(projectName)}项目是否部署到${underlineLog(
-              host
-            )}---${underlineLog(name)}？`,
-            name: "publishSure",
-            default: true,
-          },
-        ];
+        // let arr = [
+        //   {
+        //     type: "confirm",
+        //     message: `${underlineLog(projectName)}项目是否部署到${underlineLog(
+        //       host
+        //     )}---${underlineLog(name)}？`,
+        //     name: "publishSure",
+        //     default: true,
+        //   },
+        // ];
+        deploySingle(config);
         if (dockerName && dockerWebDir) {
-          arr.push({
-            type: "confirm",
-            message: `项目是否更新到docker：${underlineLog(dockerName)}？`,
-            name: "dockerSure",
-            default: true,
-          });
+          deploySingle(config, true);
+          
+          // arr.push({
+          //   type: "confirm",
+          //   message: `项目是否更新到docker：${underlineLog(dockerName)}？`,
+          //   name: "dockerSure",
+          //   default: true,
+          // });
         }
 
-        inquirer.prompt(arr).then((answers) => {
-          const { publishSure, dockerSure } = answers;
-          if (!publishSure) {
-            process.exit(1);
-          }
-          if (publishSure) {
-            const { deploySingle } = require("../lib/deploy");
-            deploySingle(config, dockerSure);
-          }
-        });
+        // inquirer.prompt(arr).then((answers) => {
+        //   const { publishSure, dockerSure } = answers;
+        //   if (!publishSure) {
+        //     process.exit(1);
+        //   }
+        //   if (publishSure) {
+        //     const { deploySingle } = require("../lib/deploy");
+        //     deploySingle(config, dockerSure);
+        //   }
+        // });
       });
   });
 }
